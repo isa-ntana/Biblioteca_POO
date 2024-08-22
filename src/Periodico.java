@@ -1,11 +1,9 @@
 public class Periodico extends ItemBibliografico {
     String periodicidade;
     int volume;
-    ItemBibliografico itemBibliografico;
 
-    public Periodico(String codigo, String titulo, int anoPublicacao, String periodicidade, int volume, ItemBibliografico itemBibliografico) {
+    public Periodico(String codigo, String titulo, int anoPublicacao, String periodicidade, int volume) {
         super(codigo, titulo, anoPublicacao);
-        this.itemBibliografico = itemBibliografico;
         this.volume = volume;
         this.periodicidade = periodicidade;
     }
@@ -27,6 +25,7 @@ public class Periodico extends ItemBibliografico {
     }
 
     public boolean validarCampos(){
+        validarCamposItem();
         if (this.getPeriodicidade().isEmpty()){
             throw new RuntimeException("Periodicidade está vazia, preencha!");
         } else if (this.getVolume() < 0 && this.getPeriodicidade().isEmpty()) {

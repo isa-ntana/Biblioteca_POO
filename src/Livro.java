@@ -1,13 +1,11 @@
 public class Livro extends ItemBibliografico{
     String autor;
     String isbn;
-    ItemBibliografico itemBibliografico;
 
-    public Livro(String codigo, String titulo, int anoPublicacao, String autor, String isbn, ItemBibliografico itemBibliografico) {
+    public Livro(String codigo, String titulo, int anoPublicacao, String autor, String isbn) {
         super(codigo, titulo, anoPublicacao);
         this.autor = autor;
         this.isbn = isbn;
-        this.itemBibliografico = itemBibliografico;
     }
 
     public String getAutor() {
@@ -27,6 +25,7 @@ public class Livro extends ItemBibliografico{
     }
 
     public boolean validarCampos(){
+        validarCamposItem();
         if (this.getIsbn().length() < 10 || this.getIsbn().length() > 13){
             throw new RuntimeException("ISBN inválido, preencha corretamente");
         } else if (this.getAutor().isEmpty()) {
@@ -37,7 +36,7 @@ public class Livro extends ItemBibliografico{
 
     @Override
     public String toString() {
-        validarCampos();
+        validarCamposItem();
         StringBuilder model = new StringBuilder();
         model.append(super.toString());
         model.append("\n Autor: "+autor);

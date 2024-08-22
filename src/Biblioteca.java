@@ -1,6 +1,6 @@
 import java.util.*;
 
-public abstract class Biblioteca {
+public class Biblioteca {
     public List<ItemBibliografico> itens;
 
     public Biblioteca(List<ItemBibliografico> itens) {
@@ -22,9 +22,9 @@ public abstract class Biblioteca {
             if (opcao == 1) {
                 adicionarItem();
             } else if (opcao == 2) {
-                //buscarPorCodigo();
+                buscarPorCodigo();
             } else if (opcao == 3) {
-                System.out.println(itens);
+                listarItens();
             } else if (opcao == 0) {
                 execute = false;
             }
@@ -35,42 +35,41 @@ public abstract class Biblioteca {
         ItemBibliografico item = null;
         int opcao = scanner("Digite 1 para adicionar periódico e 2 para adicionar um livro").nextInt();
         if (opcao == 1) {
-            item = new Periodico(adicionarPeriodico().codigo, adicionarPeriodico().titulo, adicionarPeriodico().anoPublicacao, adicionarPeriodico().periodicidade, adicionarPeriodico().volume,new ItemBibliografico(adicionarPeriodico().codigo, adicionarPeriodico().titulo, adicionarPeriodico().anoPublicacao));
+            String codigo = scanner("Digite o código: ").next();
+            String titulo = scanner("Digite o título: ").next();
+            int anoPublicacao = scanner("Digite o ano de publicação: ").nextInt();
+            String periodicidade = scanner("Digite a periodicidade: ").next();
+            int volume = scanner("Digite o volume: ").nextInt();
+
+            item = new Periodico(codigo, titulo, anoPublicacao, periodicidade, volume);
+
         } else if (opcao == 2) {
-            item = new Livro(adicionarLivro().codigo, adicionarLivro().titulo, adicionarLivro().anoPublicacao,adicionarLivro().autor, adicionarLivro().isbn,new ItemBibliografico(adicionarPeriodico().codigo, adicionarPeriodico().titulo, adicionarPeriodico().anoPublicacao));
+            String codigo = scanner("Digite o código: ").next();
+            String titulo = scanner("Digite o título: ").next();
+            int anoPublicacao = scanner("Digite o ano de publicação: ").nextInt();
+            String autor = scanner("Digite o autor: ").next();
+            String isbn = scanner("Digite o isbn: ").next();
+
+            item = new Livro(codigo,titulo,anoPublicacao,autor,isbn);
         }
         itens.add(item);
     }
 
-    public Periodico adicionarPeriodico(){
-        String codigo = scanner("Digite o código: ").next();
-        String titulo = scanner("Digite o título: ").next();
-        int anoPublicacao = scanner("Digite o ano de publicação: ").nextInt();
-        String periodicidade = scanner("Digite a periodicidade: ").next();
-        int volume = scanner("Digite o volume: ").nextInt();
-
-        return new Periodico(codigo, titulo, anoPublicacao, periodicidade,volume, new ItemBibliografico(codigo,titulo,anoPublicacao));
-    }
-
-    public Livro adicionarLivro(){
-        String codigo = scanner("Digite o código: ").next();
-        String titulo = scanner("Digite o título: ").next();
-        int anoPublicacao = scanner("Digite o ano de publicação: ").nextInt();
-        String autor = scanner("Digite o autor: ").next();
-        String isbn = scanner("Digite o isbn: ").next();
-
-        return new Livro(codigo,titulo,anoPublicacao,autor,isbn,new ItemBibliografico(codigo,titulo,anoPublicacao));
-    }
-
-    public ItemBibliografico buscarPorCodigo(String codigo){
-        for (ItemBibliografico item : this.itens) { if (item.codigo.equals(codigo)) return item; }
+    public ItemBibliografico buscarPorCodigo(){
+        String codigoProcurado = scanner("Digite o código que deseja buscar").next();
+        for (ItemBibliografico item : this.itens) {
+            if (item.codigo.equals(codigoProcurado)) {
+                System.out.println(item);
+            }
+        }
         return null;
     }
 
-    /*public ItemBibliografico listarItens(ItemBibliografico item){
-        int index = this.itens.indexOf(item);
-        return this.itens.get(index);
-    } */
+    public void listarItens(){
+        for (int i=0; i< itens.size(); i++) {
+            System.out.printf("\n" + itens.get(i) + "\n");
+        }
+    }
 
     @Override
     public String toString() {

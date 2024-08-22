@@ -1,4 +1,4 @@
-public class ItemBibliografico {
+public abstract class ItemBibliografico {
     public String codigo;
     public String titulo;
     public int anoPublicacao;
@@ -33,7 +33,7 @@ public class ItemBibliografico {
         this.anoPublicacao = anoPublicacao;
     }
 
-    public boolean validarCampos(){
+    public boolean validarCamposItem(){
         if (this.getCodigo().isEmpty()) {
             throw new RuntimeException("Código inválido");
         } else if (this.getTitulo().isEmpty()) {
@@ -47,8 +47,7 @@ public class ItemBibliografico {
     @Override
     public String toString() {
         StringBuilder model = new StringBuilder();
-        model.append("\n Código: "+codigo);
-        model.append("\n Título: "+titulo);
+        model.append("Código " + codigo + " - Título: "+titulo);
         model.append("\n Ano de publicação: "+anoPublicacao);
         return model.toString();
     }
