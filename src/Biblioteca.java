@@ -33,6 +33,8 @@ public class Biblioteca {
 
     public void adicionarItem(){
         ItemBibliografico item = null;
+        Periodico periodico = null;
+        Livro livro = null;
         int opcao = scanner("Digite 1 para adicionar periódico e 2 para adicionar um livro").nextInt();
         if (opcao == 1) {
             String codigo = scanner("Digite o código: ").next();
@@ -41,7 +43,16 @@ public class Biblioteca {
             String periodicidade = scanner("Digite a periodicidade: ").next();
             int volume = scanner("Digite o volume: ").nextInt();
 
-            item = new Periodico(codigo, titulo, anoPublicacao, periodicidade, volume);
+            periodico = new Periodico(codigo, titulo, anoPublicacao, periodicidade, volume);
+
+            try {
+                if (periodico.validarCampos()) {
+                    itens.add(periodico);
+                    System.out.println("Item adicionado com sucesso!");
+                }
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
 
         } else if (opcao == 2) {
             String codigo = scanner("Digite o código: ").next();
@@ -50,9 +61,17 @@ public class Biblioteca {
             String autor = scanner("Digite o autor: ").next();
             String isbn = scanner("Digite o isbn: ").next();
 
-            item = new Livro(codigo,titulo,anoPublicacao,autor,isbn);
+            livro = new Livro(codigo,titulo,anoPublicacao,autor,isbn);
+
+            try {
+                if (livro.validarCampos()) {
+                    itens.add(livro);
+                    System.out.println("Item adicionado com sucesso!");
+                }
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        itens.add(item);
     }
 
     public ItemBibliografico buscarPorCodigo(){
